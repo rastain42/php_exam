@@ -74,54 +74,70 @@
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+           <link rel="stylesheet" href="css/publish-question.css" />
       </head>  
       <body>  
-           <br /><br />  
-           <div class="container" style="width:500px;">  
-                <h3 align="center">Bienvenue sur notre site, Projet X est un site répertoriant les soirées du coin</h3>  
-                <br />  
+          <div id=wrap>
+           <div class="signup-form"> 
+               <h2>Projet X</h2>
                 <?php  
                 if(isset($_GET["action"]) == "login")  
                 {  
                 ?>  
-                <h3 align="center">Connexion</h3>  
-                <br />  
+                <h3 class="hint-text">Connexion</h3>  
                 <form method="post">  
-                     <label>Enter Username</label>  
-                     <input type="text" name="username" class="form-control" />  
-                     <br />  
-                     <label>Enter Password</label>  
-                     <input type="password" name="password" class="form-control" />  
-                     <br />  
-                     <input type="submit" name="login" value="Login" class="btn btn-info" />  
-                     <br />  
-                     <p align="center"><a href="index.php">Register</a></p>  
+                     
+                    <div class="form-group">
+	          		<div class="row">
+	          			<div class="col"><input type="text" class="form-control" name="username" placeholder="Pseudo.." required="required"></div>
+	          		</div>        	
+                    </div>
+
+                    <div class="form-group">
+	          		<div class="row">
+	          			<div class="col"><input type="password" class="form-control" placeholder="Mot de passe.." name="password" required="required"></div>
+	          		</div>        	
+                    </div>
+
+                    <div class="form-group" id="buttonRow">
+                         <input type="submit" name="login" value="Connexion" class="btn btn-success btn-lg btn-block rounded" />  
+                         <button class="btn btn-primary btn-lg btn-block rounded"><a href="index.php">Inscription</a> </button>
+                    </div>
                 </form>  
                 <?php       
                 }  
                 else  
                 {  
                 ?>  
-                <h3 align="center">Inscription</h3>  
-                <br />  
-                <!-- (Username, Password, Email, RegisterDate, AuthorityLevel) -->
+                <h3 class="hint-text">Inscription </h3> 
                 <form method="post">  
-                     <label>Pseudo : (max 60 caractères)</label>  
-                     <input type="text" name="username" class="form-control" />  
-                     <br />  
-                     <label>Email : (max 320 caractères)</label>  
-                     <input type="text" name="email" class="form-control" />  
-                     <br />  
-                     <label>Mot de passe :</label>  
-                     <input type="password" name="password" class="form-control" />  
-                     <br />  
-                     <input type="submit" name="register" value="Inscription" class="btn btn-info" />  
-                     <br />  
-                     <p align="center"><a href="index.php?action=login">Login</a></p>  
+                    <div class="form-group">
+	          		<div class="row">
+                              <label>Pseudo : (max 60 caractères)</label>  
+	          			<div class="col"><input type="text" name="username" placeholder="..." class="form-control" />  </div>
+	          		</div>        	
+                    </div>
+                    <div class="form-group">
+	          		<div class="row">
+                              <label>Email : (max 320 caractères)</label>  
+	          			<div class="col"><input type="text" name="email" placeholder="..." class="form-control" />    </div>
+	          		</div>        	
+                    </div>
+                    <div class="form-group">
+	          		<div class="row">
+                              <label>Mot de passe :</label>  
+	          			<div class="col"><input type="password" name="password" placeholder="..." class="form-control" />      </div>
+	          		</div>        	
+                    </div>
+                    <div class="form-group" id="buttonRow">
+                         <input type="submit" name="register" value="Inscription" class="btn btn-primary btn-lg btn-block rounded" />  
+                         <button class="btn btn-success btn-lg btn-block rounded"><a href="index.php?action=login">Connexion</a> </button>
+                    </div>
                 </form>  
                 <?php  
                 }  
                 ?>  
-           </div>  
-      </body>  
+          </div>  
+          </div>
+     </body>  
  </html>  

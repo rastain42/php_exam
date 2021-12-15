@@ -12,6 +12,7 @@
            <title>Accueil</title>  
       </head>  
       <body>  
+      <?php include 'navbar.php'?>
            <br /><br />  
            <div class="container" style="width:500px;">  
                 <h3>Bienvenue sur cette page d'acceuil en travaux</h3>  
