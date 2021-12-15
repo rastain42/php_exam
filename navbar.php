@@ -19,6 +19,9 @@
         <a class="nav-link disabled" href="#"></a>
       </li>
     </ul>
+    <div id="logout">
+    <label><a href="logout.php">Logout</a></label>
+    </div>
 
   </div>
 </nav>

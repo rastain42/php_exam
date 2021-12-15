@@ -57,15 +57,19 @@
            $password = md5($password);  
            $query = "SELECT * FROM users WHERE Username = '$username' AND Password = '$password'";  
            $result = mysqli_query($connect, $query);  
+           $row = $result->fetch_row();
+
+           $userId = $row[0];
            if(mysqli_num_rows($result) > 0)  {  
-                $_SESSION['username'] = $username;  
+                $_SESSION['username'] = $username; 
+                $_SESSION['userId'] = $userId;
                 header("location:home.php");  
            }  
            else{  
                 echo '<script>alert("Wrong User Details")</script>';  
            }  
-      }  
- }  
+          }  
+     }  
 ?>
 <!DOCTYPE html>  
  <html>  
