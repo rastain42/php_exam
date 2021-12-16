@@ -1,5 +1,4 @@
 <?php  
- //entry.php  
  session_start();  
  if(!isset($_SESSION["username"]))  
  {  
@@ -22,12 +21,11 @@
       <?php include 'navbar.php'?>
            <br /><br />  
            <div class="container" style="width:500px;">  
-                <h3>Bienvenue sur cette page d'acceuil en travaux</h3>  
+                <h3>Bienvenue sur cette page de profil en devenir</h3>  
 
                 <?php  
                 echo '<h1>Bienvenue '.$_SESSION["username"].'</h1>';  
-                echo '<h1>ID : '.$_SESSION["userId"].'</h1>';  
-                echo '<label><a href="logout.php">Logout</a></label>';  
+                echo '<h1>ID : '.$_SESSION["userId"].'</h1>';   
 
                 ?>  
            </div>  
