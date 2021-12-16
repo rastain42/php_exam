@@ -5,6 +5,9 @@
  {  
       header("location:index.php?action=login");  
  }  
+ $mysqli = new mysqli("localhost", "admin", "PassWord!", "php_exam_db");  
+
+ $result = $mysqli->query("SELECT * FROM `events` ORDER BY PostDate DESC; ");
  ?>  
  <!DOCTYPE html>  
  <html>  
@@ -28,8 +31,10 @@
                 echo '<h1>Bienvenue '.$_SESSION["username"].'</h1>';  
                 echo '<h1>ID : '.$_SESSION["userId"].'</h1>';  
                 echo '<label><a href="logout.php">Logout</a></label>';  
-
                 ?>  
+                <?php while ($row = mysql_fetch_assoc($result)): ?>
+                    <p><?php echo $row['titre'];?><p>
+                <?php endwhile ?>
            </div>  
       </body>  
  </html>  
