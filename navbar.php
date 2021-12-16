@@ -13,6 +13,9 @@
         <a class="nav-link" href="./publish-question.php">Articles</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="./profil.php">ProfilPage</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link disabled" href="#"></a>
       </li>
       <li class="nav-item">
