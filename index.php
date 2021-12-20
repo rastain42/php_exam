@@ -19,7 +19,7 @@
             $password = mysqli_real_escape_string($connect, $_POST["password"]);  
             $password = md5($password);  
             
-            require_once 'VerifyEmail.class.php'; 
+          //   require_once 'VerifyEmail.class.php'; 
             // $mail = new VerifyEmail();
             $email = mysqli_real_escape_string($connect, $_POST["email"]); 
 
@@ -35,7 +35,6 @@
             // } 
 
             $registerDate = date("Y-m-d");
-            $authorityLevel = 1;
            $query = "INSERT INTO Users (Username, Password, Email, RegisterDate, AuthorityLevel) VALUES('$username', '$password', '$email', '$registerDate', '1')";  
            if(mysqli_query($connect, $query)){  
                 echo '<script>alert("Registration Done")</script>';  
@@ -104,7 +103,7 @@
                     </div>
 
                     <div class="form-group" id="buttonRow">
-                         <input type="submit" name="login" value="Connexion" class="btn btn-success btn-lg btn-block rounded" />  
+                         <button class="btn btn-success btn-lg btn-block rounded" type="submit" name="login">Connexion</button> 
                          <button class="btn btn-primary btn-lg btn-block rounded"><a href="index.php">Inscription</a> </button>
                     </div>
                 </form>  
@@ -134,7 +133,7 @@
 	          		</div>        	
                     </div>
                     <div class="form-group" id="buttonRow">
-                         <input type="submit" name="register" value="Inscription" class="btn btn-primary btn-lg btn-block rounded" />  
+                         <button class="btn btn-primary btn-lg btn-block rounded" type="submit" name="register">Inscription</button>
                          <button class="btn btn-success btn-lg btn-block rounded"><a href="index.php?action=login">Connexion</a> </button>
                     </div>
                 </form>  

@@ -30,6 +30,7 @@
     <div class="event">  
         <?php  
         echo '<div class="eventHead">';
+        /// a href profil
         echo '<h2><b>'.$row['Title'].'</b></h2> <h3><i> par '.$row['Username'].'</i></h3>';
         echo '</div>';
         

@@ -4,7 +4,19 @@
  {  
       header("location:index.php?action=login");  
  }  
+
+ include 'dbConnect.php';
+ 
+ if(isset($_GET["id"]))  {  
+     $result = $_SESSION['mysqli']->query("SELECT * FROM users WHERE Id = ". $_GET['id']);
+ }else{
+     $result = $_SESSION['mysqli']->query("SELECT * FROM users WHERE Id = ".$_SESSION['userId']);
+ }
+
+ $row = $result->fetch_array(MYSQLI_ASSOC);
+
  ?>  
+
  <!DOCTYPE html>  
 <html>  
      <head>  
@@ -19,13 +31,10 @@
      </head>  
      <body>  
           <?php include 'navbar.php'?>
-          <?php
-          $mysqli = new mysqli("localhost", "admin", "PassWord!", "php_exam_db");
-          $result = $mysqli->query($request ="SELECT * FROM users WHERE Id = 1");
-          while ($ligne = $result -> fetch_assoc()) {
-          echo $ligne['Username'] . ' ' . $ligne['Email'] . ' ' . $ligne['RegisterDate'] . ' ';
-    }
-    ?>
+          <?php 
+          echo '<h1> '.$row['Username'].'</h1>'; 
+          ?>
+
     <section class="section about-section gray-bg" id="about">
          <div class="parametre">
                <a href="profilEdit.php">
@@ -33,7 +42,7 @@
                     <path id="ic_settings_24px" d="M39.316,25.7a16.824,16.824,0,0,0,.151-2.116,16.826,16.826,0,0,0-.151-2.116l4.555-3.562a1.089,1.089,0,0,0,.259-1.382L39.813,9.06A1.085,1.085,0,0,0,38.5,8.585L33.12,10.744a15.773,15.773,0,0,0-3.649-2.116l-.82-5.721A1.053,1.053,0,0,0,27.593,2H18.958a1.053,1.053,0,0,0-1.058.907l-.82,5.721a16.587,16.587,0,0,0-3.649,2.116L8.055,8.585a1.053,1.053,0,0,0-1.317.475L2.42,16.529a1.064,1.064,0,0,0,.259,1.382l4.555,3.562a17.121,17.121,0,0,0-.151,2.116A17.121,17.121,0,0,0,7.235,25.7L2.679,29.267a1.089,1.089,0,0,0-.259,1.382l4.318,7.47a1.085,1.085,0,0,0,1.317.475l5.376-2.159a15.773,15.773,0,0,0,3.649,2.116l.82,5.721a1.053,1.053,0,0,0,1.058.907h8.636a1.053,1.053,0,0,0,1.058-.907l.82-5.721a16.587,16.587,0,0,0,3.649-2.116L38.5,38.594a1.053,1.053,0,0,0,1.317-.475l4.318-7.47a1.089,1.089,0,0,0-.259-1.382Zm-16.041,5.44a7.556,7.556,0,1,1,7.556-7.556A7.564,7.564,0,0,1,23.275,31.145Z" transform="translate(-2.271 -2)"/>
                </svg>
                </a>
-</div>
+          </div>
             <div class="container">
                 <div class="row align-items-center flex-row-reverse">
                     <div class="col-lg-6">
@@ -62,11 +71,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="media">
-                                        <label <?php
-                                        $Id = 
-                                        $result = $mysqli->query($request ="SELECT Email FROM users WHERE Id = 1");
-                                        echo $result;
-                                        ?>>E-mail</label>
+                                        <label>E-mail</label>
                                         <p>info@domain.com</p>
                                     </div>
                                     <div class="media">
