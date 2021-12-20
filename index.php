@@ -20,24 +20,24 @@
             $password = md5($password);  
             
             require_once 'VerifyEmail.class.php'; 
-            $mail = new VerifyEmail();
+            // $mail = new VerifyEmail();
             $email = mysqli_real_escape_string($connect, $_POST["email"]); 
 
             // Check if email is valid and exist
-            if($mail->check($email)){ 
-                $ok = true;
-            }elseif(verifyEmail::validate($email)){ 
-                echo 'Email &lt;'.$email.'&gt; is valid, but not exist!'; 
-                $ok = false;
-            }else{ 
-                echo 'Email &lt;'.$email.'&gt; is not valid and not exist!'; 
-                $ok = false;
-            } 
+            // if($mail->check($email)){ 
+            //     $ok = true;
+            // }elseif(verifyEmail::validate($email)){ 
+            //     echo 'Email &lt;'.$email.'&gt; is valid, but not exist!'; 
+            //     $ok = false;
+            // }else{ 
+            //     echo 'Email &lt;'.$email.'&gt; is not valid and not exist!'; 
+            //     $ok = false;
+            // } 
 
             $registerDate = date("Y-m-d");
             $authorityLevel = 1;
            $query = "INSERT INTO Users (Username, Password, Email, RegisterDate, AuthorityLevel) VALUES('$username', '$password', '$email', '$registerDate', '1')";  
-           if(mysqli_query($connect, $query) && $ok){  
+           if(mysqli_query($connect, $query)){  
                 echo '<script>alert("Registration Done")</script>';  
            } else{
                 echo '<script>alert("Registration Error, Respecte le formulaire !")</script>'; 
@@ -144,4 +144,4 @@
           </div>  
           </div>
      </body>  
- </html>  
+ </html>
