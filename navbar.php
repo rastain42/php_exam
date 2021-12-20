@@ -18,9 +18,6 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#"></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#"></a>
-      </li>
     </ul>
     <div id="logout" class="btn btn-danger">
     <a style="color:black"href="logout.php">Logout</a>
