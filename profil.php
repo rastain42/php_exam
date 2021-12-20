@@ -62,7 +62,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="media">
-                                        <label>E-mail</label>
+                                        <label <?php
+                                        $Id = 
+                                        $result = $mysqli->query($request ="SELECT Email FROM users WHERE Id = 1");
+                                        echo $result;
+                                        ?>>E-mail</label>
                                         <p>info@domain.com</p>
                                     </div>
                                     <div class="media">
