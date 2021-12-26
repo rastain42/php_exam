@@ -1,3 +1,11 @@
+<?php  
+ session_start();  
+ if(!isset($_SESSION["username"])){  
+    header("location:index.php?action=login");  
+ }  
+
+ include 'dbConnect.php';
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +19,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/publish-question.css" />
+<link rel="stylesheet" href="css/navbar.css" />
 </head>
 
 <body>
@@ -32,16 +41,13 @@
 		<div class="form-group">
         <input type="textarea" class="form-control" name="lieu" placeholder="Le lieu ?" required="required">
         </div>        
-        <label for="meeting-time">choisis l'heurrrrrre, dateee</label>
+        <label for="meeting-time">choisis l'heure, date</label>
 
         <input type="datetime-local" id="meeting-time"
             name="meeting-time" value="2021-06-12T19:30"
             min="2021-06-07T00:00" max="2021-06-14T00:00">
 
              <br> <br>
-        <div class="form-group">
-			<label class="form-check-label"><input type="checkbox" required="required"> j'accepte les conditions imposés <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-		</div>
 		<div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block">Publier ma soirée !</button>
         </div>
