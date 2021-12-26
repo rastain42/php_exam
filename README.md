@@ -32,6 +32,8 @@ Nous avons pu réaliser :
 
 - un module db connect permetant d'économiser du code, également un module navbar
 
+- j'ai oublié de rajouter le lien des profil mais on peut y accèder comme ça : `http://localhost/php_exam/profil.php?id=1`
+
 Dans un cas concret , l'utilisateur arrive sur une page d'authentification avec la possibilité de se connecter ou de s'inscrire.
 Une fois qu'il s'est inscrit, l'utilisateur doit se connceter a nouveau pour acceder a la page Home.
 Il a la possibilité d'allez sur la page Articles, Profil, ou se logout.
