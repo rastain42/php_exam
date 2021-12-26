@@ -5,7 +5,24 @@
  }  
 
  include 'dbConnect.php';
- ?>
+ $mysqli = $_SESSION['mysqli'];
+ 
+ if(isset($_POST["edit"])){  
+    if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["startDate"]) && isset($_POST["endDate"])){  
+        $title = mysqli_real_escape_string($mysqli, $_POST["title"]);  
+        $content = empty($_POST["content"]) ? $row['Content'] : mysqli_real_escape_string($mysqli, $_POST["content"]);  
+        $startDate = mysqli_real_escape_string($mysqli, $_POST["startDate"]);  
+        $endDate = mysqli_real_escape_string($mysqli, $_POST["endDate"]);  
+        $localisation = mysqli_real_escape_string($mysqli, $_POST["localisation"]);  
+
+        if (!$mysqli->query("INSERT INTO `events`(`Title`, `Content`, `StartDate`, `EndDate`, `Localisation`, `PostDate`,`UserId`)".
+        "VALUES ('".$title."','".$content."','".date('Y-m-d\ H:i:s',strtotime($startDate))."','".date('Y-m-d\ H:i:s',strtotime($endDate))."','".$localisation."','".date("Y-m-d")."','".$_SESSION['userId']."')" )) {
+            echo "Error updating: " . $mysqli->error;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,35 +41,29 @@
 
 <body>
     <?php include 'navbar.php'?>
-<div class="signup-form">
-    <form action="/examples/actions/confirmation.php" method="post">
-		<h2>Projet X</h2>
-		<p class="hint-text">Publies ta soirée ! </p>
-        <div class="form-group">
-			<div class="row">
-				<div class="col"><input type="text" class="form-control" name="concept" placeholder=" Le concept de la soirée ?" required="required"></div>
-			</div>        	
-        </div>
-        <div class="form-group">
-        	<input type="textarea" class="form-control" name="deroulement" placeholder="Déroulement de la soirée ?" required="required">
-        </div>
-		<div class="form-group">
-        </div>
-		<div class="form-group">
-        <input type="textarea" class="form-control" name="lieu" placeholder="Le lieu ?" required="required">
-        </div>        
-        <label for="meeting-time">choisis l'heure, date</label>
+    <div class="signup-form">
+        <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center mb-3 text-center">
+                <h3 class="text-right" style="color:black">Création d'évènement</h3>
+            </div>
+            <form method="post"> 
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Titre :</label><input type="text" class="form-control" placeholder="..." name="title"></div>
+                    <div class="col-md-12"><label class="labels">Lieu :</label><input type="text" class="form-control" placeholder="..." name="localisation"></div>
 
-        <input type="datetime-local" id="meeting-time"
-            name="meeting-time" value="2021-06-12T19:30"
-            min="2021-06-07T00:00" max="2021-06-14T00:00">
+                    <div class="col-md-12"><label class="labels">Description :</label>
+                    <textarea class="form-control" style="min-height:20vh" placeholder="..." name="content"></textarea>
 
-             <br> <br>
-		<div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Publier ma soirée !</button>
+                    <div class="flex-row justify-content-center text-center">
+                        <div class="col-md my-3"><label class="labels">Date de début :</label>
+                            <input type="datetime-local" name="startDate"></div>
+                        <div class="col-md my-4"><label class="labels">Confirmation :</label>
+                        <input type="datetime-local" name="endDate" ></div>
+                        <div class="mt-3 text-center" style="width:100%"><button class="btn btn-primary profile-button" type="submit" name="edit">Sauvegarder</button></div>
+                </div>
+            </form>
+    
         </div>
-    </form>
-	<div class="text-center"> Bon bah Bonne soirée ! <a href="#"></a></div>
-</div>
+    </div>
 </body>
 </html>

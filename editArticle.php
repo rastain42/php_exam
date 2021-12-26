@@ -30,18 +30,17 @@
         }
     }
     if(isset($_POST["startDate"])){
-        $startDate = mysqli_real_escape_string($mysqli, $_POST["StartDate"]);  
+        $startDate = mysqli_real_escape_string($mysqli, $_POST["startDate"]);  
         if (!$mysqli->query("UPDATE `events` SET `StartDate` = \"".date('Y-m-d\ H:i:s',strtotime($startDate))."\" WHERE `Id` = ".$row['Id'])) {
             echo "Error updating startDate: " . $mysqli->error;
         }
     }
     if(isset($_POST["endDate"])){
-        $endDate = mysqli_real_escape_string($mysqli, $_POST["EndDate"]);  
+        $endDate = mysqli_real_escape_string($mysqli, $_POST["endDate"]);  
         if (!$mysqli->query("UPDATE `events` SET `EndDate` = \"".date('Y-m-d\ H:i:s',strtotime($endDate))."\" WHERE `Id` = ".$row['Id'])) {
             echo "Error updating endDate: " . $mysqli->error;
         }
     }
-    header("location:editArticle.php?id=".$row['Id']);
  }  
  ?>  
  <!DOCTYPE html>  
