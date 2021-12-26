@@ -29,6 +29,7 @@ color: #63738a;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-items: flex-start;
 }
 
 .eventRow{
@@ -36,6 +37,7 @@ color: #63738a;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: flex-start;
 }
 
 .event{

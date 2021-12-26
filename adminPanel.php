@@ -11,7 +11,7 @@
  while($row = $result->fetch_array()){
  $eventRows[] = $row;
  }
- $result = $_SESSION['mysqli']->query("SELECT users.Id as Id, Username, Email, RegisterDate, AuthorityLevel,  COUNT(*) as PostCount FROM `users` INNER JOIN events ON users.Id = events.UserId GROUP BY UserId; ");
+ $result = $_SESSION['mysqli']->query("SELECT users.Id as Id, Username, Email, RegisterDate, AuthorityLevel, COUNT(*) as PostCount FROM `users` INNER JOIN events ON users.Id = events.UserId GROUP BY UserId; ");
   
  while($row = $result->fetch_array()){
  $UserRows[] = $row;
@@ -56,7 +56,7 @@
              }
 
              foreach($finalEventRows as $rows){
-                  echo '<div class="eventRow">';
+                  echo '<div class="eventRow ">';
                   foreach($rows as $row){
                        echo '<div class="event">';
                             echo '<div class="eventHead">';
