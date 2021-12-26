@@ -6,15 +6,11 @@
 
  include 'dbConnect.php';
  $mysqli= $_SESSION['mysqli'];
- $result = $mysqli->query("SELECT * FROM users WHERE Id = ".$_SESSION['userId']);
-
- $row = $result->fetch_array(MYSQLI_ASSOC);
-
- if($row['ProfilPic'] != NULL){
-    $ProfilPic = $row['ProfilPic'];
- }else{
-    $ProfilPic = "ProfilPics/default.png";
+ if(isset($_GET['id'])){
+    $result = $mysqli->query("SELECT * FROM `events` WHERE Id = ".$_GET['id']);
+    $row = $result->fetch_array(MYSQLI_ASSOC);
  }
+
 
  if(isset($_POST["edit"])){  
     if(isset($_POST["username"])){  
@@ -41,24 +37,6 @@
     }    
  }  
  
- if(isset($_POST["editMDP"])){  
-    if(isset($_POST["password"] ) && isset($_POST["passwordConfirm"] )){  
-        $password = mysqli_real_escape_string($mysqli, $_POST["password"]);  
-        $passwordConfirm = mysqli_real_escape_string($mysqli, $_POST["passwordConfirm"]);
-        if(strcmp($password, $passwordConfirm) == 0){
-            $password = md5($password);  
-            if (!$mysqli->query("UPDATE `users` SET `Password` = \"".$password."\" WHERE `users`.`Id` = ".$_SESSION['userId'])) {
-                echo "Error updating username: " . $mysqli->error;
-            }else{
-                header("location:profilEdit.php");   
-            }
-        }else{
-            echo '<script>alert("les mots de passe ne sont pas les mêmes !")</script>'; 
-        }
-    }else {  
-        echo '<script>alert("WTF?, y\'a rien d\'écrit !")</script>';  
-    }    
- }  
  ?>  
  <!DOCTYPE html>  
  <html>  
@@ -104,11 +82,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="p-3 py-5 d-flex justify-content-center">
-                    <button class="detailsBtn"><a style="color:black">Importer une photo de profil</a> </button>
-                </div>
-            </div>
+
         </div>
     </div>
 </body>  

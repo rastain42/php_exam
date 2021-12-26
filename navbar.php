@@ -15,6 +15,10 @@
       <li class="nav-item">
         <a class="nav-link" href="./profil.php">ProfilPage</a>
       </li>
+      <?php
+      if ($_SESSION['authorityLevel'] == 2){
+        echo '<li class="nav-item"><a class="nav-link" href="./adminPanel.php">Admin Panel</a> </li>';
+      }?>
       <li class="nav-item">
         <a class="nav-link disabled" href="#"></a>
       </li>

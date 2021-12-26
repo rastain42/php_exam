@@ -1,73 +1,68 @@
 <?php
- $connect = mysqli_connect("localhost", "admin", "PassWord!", "php_exam_db");  
  session_start();  
- if(isset($_SESSION["username"]))  
- {  
-      header("location:home.php");  
+ include 'dbConnect.php';
+ $connect = $_SESSION['mysqli'];
+ if(isset($_SESSION["username"])){  
+     header("location:home.php");  
  }  
- if(isset($_POST["register"]))  
- {  
-      if(empty($_POST["username"]) && empty($_POST["password"]) && empty($_POST["email"]) )  
-      {  
-           echo '<script>alert("Both Fields are required")</script>';  
-      }  
-      else{
-            $username = mysqli_real_escape_string($connect, $_POST["username"]);
-            if(strlen($username) > 60){
-                echo '<script>alert("on a dit max 60char !")</script>'; 
-            }
-            $password = mysqli_real_escape_string($connect, $_POST["password"]);  
-            $password = md5($password);  
-            
+ if(isset($_POST["register"])){  
+      if(empty($_POST["username"]) && empty($_POST["password"]) && empty($_POST["email"]) ){  
+          echo '<script>alert("Both Fields are required")</script>';  
+     }  
+     else{
+          $username = mysqli_real_escape_string($connect, $_POST["username"]);
+          if(strlen($username) > 60){
+              echo '<script>alert("on a dit max 60char !")</script>'; 
+          }
+          $password = mysqli_real_escape_string($connect, $_POST["password"]);  
+          $password = md5($password);  
+           
           //   require_once 'VerifyEmail.class.php'; 
-            // $mail = new VerifyEmail();
-            $email = mysqli_real_escape_string($connect, $_POST["email"]); 
+           // $mail = new VerifyEmail();
+           $email = mysqli_real_escape_string($connect, $_POST["email"]); 
 
-            // Check if email is valid and exist
-            // if($mail->check($email)){ 
-            //     $ok = true;
-            // }elseif(verifyEmail::validate($email)){ 
-            //     echo 'Email &lt;'.$email.'&gt; is valid, but not exist!'; 
-            //     $ok = false;
-            // }else{ 
-            //     echo 'Email &lt;'.$email.'&gt; is not valid and not exist!'; 
-            //     $ok = false;
-            // } 
+           // Check if email is valid and exist
+           // if($mail->check($email)){ 
+           //     $ok = true;
+           // }elseif(verifyEmail::validate($email)){ 
+           //     echo 'Email &lt;'.$email.'&gt; is valid, but not exist!'; 
+           //     $ok = false;
+           // }else{ 
+           //     echo 'Email &lt;'.$email.'&gt; is not valid and not exist!'; 
+           //     $ok = false;
+           // } 
 
-            $registerDate = date("Y-m-d");
-           $query = "INSERT INTO Users (Username, Password, Email, RegisterDate, AuthorityLevel) VALUES('$username', '$password', '$email', '$registerDate', '1')";  
-           if(mysqli_query($connect, $query)){  
-                echo '<script>alert("Registration Done")</script>';  
-           } else{
-                echo '<script>alert("Registration Error, Respecte le formulaire !")</script>'; 
-           }
-      }  
+          $registerDate = date("Y-m-d");
+          $query = "INSERT INTO Users (Username, Password, Email, RegisterDate, AuthorityLevel) VALUES('$username', '$password', '$email', '$registerDate', '1')";  
+          if(mysqli_query($connect, $query)){  
+               echo '<script>alert("Registration Done")</script>';  
+          } else{
+               echo '<script>alert("Registration Error, Respecte le formulaire !")</script>'; 
+          }
+     }  
  }  
- if(isset($_POST["login"]))  
- {  
-      if(empty($_POST["username"]) && empty($_POST["password"]))  
-      {  
-           echo '<script>alert("Both Fields are required")</script>';  
-      }  
-      else  
-      {  
-           $username = mysqli_real_escape_string($connect, $_POST["username"]);  
-           $password = mysqli_real_escape_string($connect, $_POST["password"]);  
-           $password = md5($password);  
-           $query = "SELECT * FROM users WHERE Username = '$username' AND Password = '$password'";  
-           $result = mysqli_query($connect, $query);  
-           $row = $result->fetch_row();
+ if(isset($_POST["login"])){  
+     if(empty($_POST["username"]) && empty($_POST["password"]))  {  
+          echo '<script>alert("Both Fields are required")</script>';  
+     }  
+     else{  
+          $username = mysqli_real_escape_string($connect, $_POST["username"]);  
+          $password = mysqli_real_escape_string($connect, $_POST["password"]);  
+          $password = md5($password);  
+          $query = "SELECT * FROM users WHERE Username = '$username' AND Password = '$password'";  
+          $result = mysqli_query($_SESSION['mysqli'], $query);  
+          $row = $result->fetch_array(MYSQLI_ASSOC);
 
-           $userId = $row[0];
-           if(mysqli_num_rows($result) > 0)  {  
-                $_SESSION['username'] = $username; 
-                $_SESSION['userId'] = $userId;
-                header("location:home.php");  
-           }  
-           else{  
-                echo '<script>alert("Wrong User Details")</script>';  
-           }  
+          if(mysqli_num_rows($result) > 0)  {  
+               $_SESSION['username'] = $username; 
+               $_SESSION['userId'] = $row['Id'];
+               $_SESSION['authorityLevel'] = $row['AuthorityLevel'];;
+               header("location:home.php");  
           }  
+          else{  
+               echo '<script>alert("Wrong User Details")</script>';  
+          }  
+         }  
      }  
 ?>
 <!DOCTYPE html>  
