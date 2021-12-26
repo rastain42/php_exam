@@ -34,7 +34,7 @@
           <h3>Ce site est le repère des alcooliques du coin, tu veux pécho? frôler la sieste éthylique ? ce site est fait pour toi</h3>
      </div>  
 
-     <div class="eventList">
+     <div class="eventList align-self-start">
           <?php  
           if(isset($rows) && count($rows) > 0 ){
                for($i = count($rows); $i > 0 ; $i){
@@ -43,7 +43,7 @@
                }
 
                foreach($finalRows as $rows){
-                    echo '<div class="eventRow">';
+                    echo '<div class="eventRow ">';
                     foreach($rows as $row){
                          echo '<div class="event">';
                               echo '<div class="eventHead">';

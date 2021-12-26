@@ -9,39 +9,45 @@
  if(isset($_GET['id'])){
     $result = $mysqli->query("SELECT * FROM `events` WHERE Id = ".$_GET['id']);
     $row = $result->fetch_array(MYSQLI_ASSOC);
+ }else{
+    header("location:home.php");  
+ }
+ if( $row['UserId'] != $_SESSION['userId'] || $_SESSION['authorityLevel'] != 2){
+    header("location:home.php");  
  }
 
-
  if(isset($_POST["edit"])){  
-    if(isset($_POST["username"])){  
-        $username = mysqli_real_escape_string($mysqli, $_POST["username"]);  
-        if(strlen($username) > 60){
-            echo '<script>alert("on a dit max 60char !")</script>'; 
-        }else{
-            if (!$mysqli->query("UPDATE `users` SET `Username` = \"".$username."\" WHERE `users`.`Id` = ".$_SESSION['userId'])) {
-                echo "Error updating username: " . $mysqli->error;
-            }
+    if(isset($_POST["title"])){  
+        $title = empty($_POST["title"]) ? $row['Title'] : mysqli_real_escape_string($mysqli, $_POST["title"]);  
+        if (!$mysqli->query("UPDATE `events` SET `Title` = \"".$title."\" WHERE `Id` = ".$row['Id'])) {
+            echo "Error updating title: " . $mysqli->error;
         }
     }
-    if(isset($_POST["email"])){
-        $email = mysqli_real_escape_string($mysqli, $_POST["email"]);  
-        if (!$mysqli->query("UPDATE `users` SET `Email` = '".$email."' WHERE `users`.`Id` = ".$_SESSION['userId'])) {
-            echo "Error updating email: " . $mysqli->error;
+    if(isset($_POST["content"])){
+        $content = empty($_POST["content"]) ? $row['Content'] : mysqli_real_escape_string($mysqli, $_POST["content"]);  
+        if (!$mysqli->query("UPDATE `events` SET `Content` = \"".$content."\" WHERE `Id` = ".$row['Id'])) {
+            echo "Error updating content: " . $mysqli->error;
         }
-
     }
-    if (isset($_POST["email"]) || isset($_POST["username"])) {
-        header("location:profilEdit.php");
-    }else {  
-        echo '<script>alert("WTF?, y\'a rien d\'écrit !")</script>';  
-    }    
+    if(isset($_POST["startDate"])){
+        $startDate = mysqli_real_escape_string($mysqli, $_POST["StartDate"]);  
+        if (!$mysqli->query("UPDATE `events` SET `StartDate` = \"".date('Y-m-d\ H:i:s',strtotime($startDate))."\" WHERE `Id` = ".$row['Id'])) {
+            echo "Error updating startDate: " . $mysqli->error;
+        }
+    }
+    if(isset($_POST["endDate"])){
+        $endDate = mysqli_real_escape_string($mysqli, $_POST["EndDate"]);  
+        if (!$mysqli->query("UPDATE `events` SET `EndDate` = \"".date('Y-m-d\ H:i:s',strtotime($endDate))."\" WHERE `Id` = ".$row['Id'])) {
+            echo "Error updating endDate: " . $mysqli->error;
+        }
+    }
+    header("location:editArticle.php?id=".$row['Id']);
  }  
- 
  ?>  
  <!DOCTYPE html>  
  <html>  
  <head>  
-    <title>Accueil</title> 
+    <title>Modification d'évènement</title> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -55,29 +61,32 @@
 
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
-            <div class="col-md-3 border-right">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" alt width="200px" height="200px"  src="<?php echo $ProfilPic ?>">
-                </div>
+            <div class="col-md-3">
+
             </div>
-            <div class="col-md-5 border-right">
+            <div class="col-md-5">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="text-right" style="color:black">Modification du profil</h3>
+                        <h3 class="text-right" style="color:black">Modification d'évènement</h3>
                     </div>
                     <form method="post"> 
                         <div class="row mt-3">
-                            <div class="col-md-12"><label class="labels">Pseudonyme :</label><input type="text" class="form-control" placeholder="<?php echo $row['Username'] ?>" name="username"></div>
-                            <div class="col-md-12"><label class="labels">Adresse email :</label><input type="text" class="form-control" placeholder="<?php echo $row['Email'] ?>" name="email"></div>
+                            <div class="col-md-12"><label class="labels">Titre :</label><input type="text" class="form-control" placeholder="<?php echo $row['Title'] ?>" name="title"></div>
+                            <div class="col-md-12"><label class="labels">Contenu :</label>
+                            <textarea class="form-control" style="min-height:20vh" placeholder="<?php echo $row['Content'] ?>" name="content"></textarea>
                             <div class="mt-3 text-center" style="width:100%"><button class="btn btn-primary profile-button" type="submit" name="edit">Sauvegarder ces infos</button></div>
                         </div>
                     </form>
                     <form method="post"> 
-                        <div class="row mt-5 ml-3">
-                            <h5 class="text-right" style="color:black">Modification du mot de passe</h5>
-                            <div class="col-md-6"><label class="labels">Nouveau mot de passe :</label><input type="password" class="form-control" placeholder="..." name="password"></div>
-                            <div class="col-md-6"><label class="labels">Confirmation :</label><input type="password" class="form-control" placeholder="..." name="passwordConfirm"></div>
-                            <div class="mt-3 text-center" style="width:100%"><button class="btn btn-primary profile-button" type="submit" name="editMDP">Sauvegarder le mot de passe</button></div>
+                        <div class="row mt-5 ml-3 text-center justify-content-center">
+                            <h5 class="text-right" style="color:black">Modifier la date</h5>
+                            <div class="flex-row justify-content-center text-center">
+                                <div class="col-md my-3"><label class="labels">Date de début :</label>
+                                    <input type="datetime-local" name="startDate" value="<?php echo date('Y-m-d\TH:i',strtotime($row['StartDate'])) ?>"></div>
+                                <div class="col-md my-4"><label class="labels">Confirmation :</label>
+                                <input type="datetime-local" name="endDate" value="<?php echo date('Y-m-d\TH:i',strtotime($row['EndDate'])) ?>"></div>
+                                <div class="mt-3 text-center" style="width:100%"><button class="btn btn-primary profile-button" type="submit" name="edit">Sauvegarder</button></div>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -32,6 +32,8 @@
         echo '<div class="eventHead">';
         /// a href profil
         echo '<h2><b>'.$row['Title'].'</b></h2> <h3><i> par '.$row['Username'].'</i></h3>';
+        echo '<a href="editArticle.php?id='.$row['Id'].'"><button class="detailsBtn">Modifier</button></a>';
+
         echo '</div>';
         
         echo '<div class="content"><p class="contentText">'.$row['Content'].'<p></div>';
