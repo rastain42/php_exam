@@ -5,6 +5,7 @@
 Nous avons fait une base de données en php.
 Voici sa structure : 
 ![](https://i.imgur.com/8jHBrPB.png)
+![](https://i.imgur.com/ugtDCwM.png)
 
 Nous avons pu réaliser :
 
